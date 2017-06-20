@@ -12,8 +12,49 @@
     tools:context="cjcompany.nutridog.StartActivity">
 
 
+    <!-- Replace with jpeg logo? -->
     <TextView
-        android:text="Hello World!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:text="@string/app_name"
+        android:layout_weight="3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textIsSelectable="false"
+        android:textSize="30sp"
+        android:textStyle="bold"
+    />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Pets"
+        android:onClick="goTo_PetsPage"
+        android:id="@+id/btn_goToPetsPage"
+        android:textSize="30sp"
+    />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Nearby Vets"
+        android:onClick="goTo_VetsPage"
+        android:id="@+id/btn_goToVetsPage"
+        android:textSize="30sp"
+    />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Toys"
+        android:onClick="goTo_ToysPage"
+        android:id="@+id/btn_goToToysPage"
+        android:textSize="30sp"
+    />
+
+
 </LinearLayout>

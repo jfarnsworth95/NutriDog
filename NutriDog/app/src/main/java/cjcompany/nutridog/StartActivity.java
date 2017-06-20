@@ -1,5 +1,6 @@
 package cjcompany.nutridog;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -14,5 +15,23 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
+    }
+
+    public void goTo_PetsPage(){
+        Intent intent = new Intent(this, PetsPage.class);
+        //intent.putExtra(EXTRA_MESSAGE, androidId);
+        startActivity(intent);
+    }
+
+    public void goTo_VetsPage(){
+        Intent intent = new Intent(this, VetsPage.class);
+        //intent.putExtra(EXTRA_MESSAGE, androidId);
+        startActivity(intent);
+    }
+
+    public void goTo_ToysPage(){
+        Intent intent = new Intent(this, ToysPage.class);
+        //intent.putExtra(EXTRA_MESSAGE, androidId);
+        startActivity(intent);
     }
 }
