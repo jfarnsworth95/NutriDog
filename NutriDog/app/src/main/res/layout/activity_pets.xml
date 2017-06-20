@@ -4,3 +4,5 @@
     android:layout_height="match_parent">
 
 </LinearLayout>
+
+<!-- All layout info will be generated via XML injection in PetsPage.class -->

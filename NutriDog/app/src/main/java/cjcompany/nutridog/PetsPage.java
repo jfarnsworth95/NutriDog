@@ -1,7 +1,9 @@
 package cjcompany.nutridog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 /**
  * Created by Jackson on 6/20/2017.
@@ -38,6 +40,25 @@ public class PetsPage extends AppCompatActivity {
         //from breed, generate:
             //envrionment? waiting on Cary for these.
             //excersises?
+    }
+
+    private void onSubmitButton(){
+        //save dog info to pets.csv
+        //reload page (check how to clear injected XML code, if even necessary)
+    }
+
+    private void onNewPetButton(){
+        //clear previous injected XML code
+            /* if no clear is needed, remove this method and set
+            /  newPetForm as onClick method for addNewPet button
+            */
+    }
+
+    public void goTo_PetInfo(View view){
+        Intent intent = new Intent(this, VetsPage.class);
+        //add pet reference to EXTRA_MESSAGE
+        //intent.putExtra(EXTRA_MESSAGE, androidId);
+        startActivity(intent);
     }
 }
 
