@@ -12,6 +12,7 @@ android:paddingTop="@dimen/activity_vertical_margin"
 android:paddingBottom="@dimen/activity_vertical_margin"
 tools:context=".PetInfoPage">
 
+    <!-- Grey if no exercise done yet, green with checkmark when done -->
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -32,7 +33,7 @@ tools:context=".PetInfoPage">
             android:text="Breakfast"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="center_horizontal"
             android:layout_alignParentTop="true"
             android:textIsSelectable="false"
             android:textSize="30sp"
@@ -63,12 +64,11 @@ tools:context=".PetInfoPage">
             android:text="Lunch"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:gravity="left"
             android:layout_alignParentTop="true"
             android:textIsSelectable="false"
             android:textSize="30sp"
             android:textStyle="bold"
-        />
+            android:gravity="center_horizontal" />
 
         <!-- Jumps to lunch info page
              label name on button should be food set in class file -->
@@ -94,7 +94,7 @@ tools:context=".PetInfoPage">
             android:text="Dinner"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:gravity="left|center"
+            android:gravity="center"
             android:layout_alignParentTop="true"
             android:textIsSelectable="false"
             android:textSize="30sp"
