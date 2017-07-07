@@ -26,11 +26,12 @@ public class SearchableActivity extends ListActivity {
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            findMatchingDogFood(query);
+            ArrayList<String> al = findMatchingDogFood(query);
+            toArrayAdapter(al);
         }
     }
 
-    public ArrayAdapter<String> findMatchingDogFood(String query){
+    public ArrayList<String> findMatchingDogFood(String query){
 
         String dogFoodFile = "cleanDogFood.csv";
 
@@ -82,9 +83,11 @@ public class SearchableActivity extends ListActivity {
             }
         }
 
-        //move arraylist to arrayAdapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,matchingResults);
-        //return arrayAdapter
+        return matchingResults;
+    }
+
+    public ArrayAdapter<String> toArrayAdapter(ArrayList<String> al){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,al);
         return adapter;
     }
 }
