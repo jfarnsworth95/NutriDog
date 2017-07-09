@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
+ * https://www.youtube.com/watch?v=z47B1nhC3K0
  */
 public class ExampleUnitTest {
     @Test
@@ -41,5 +42,12 @@ public class ExampleUnitTest {
         SearchableActivity sa = new SearchableActivity();
         ArrayList<String> al = sa.findMatchingDogFood("Artemis");
         assertEquals(15,al.size());
+    }
+
+    @Test
+    public void search_partialQuery() throws Exception{
+        SearchableActivity sa = new SearchableActivity();
+        ArrayList<String> al = sa.findMatchingDogFood("chick");
+        assertEquals(119,al.size());
     }
 }
