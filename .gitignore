@@ -4,7 +4,8 @@
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
+NutriDog/app/build
+NutriDog/build
 /captures
 .idea
 NutriDog/.idea/misc.xml

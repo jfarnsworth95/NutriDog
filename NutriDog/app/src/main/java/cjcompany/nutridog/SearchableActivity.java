@@ -40,7 +40,7 @@ public class SearchableActivity extends ListActivity {
         BufferedReader br = null;
 
         try{
-            FileReader fr = new FileReader("/NutriDog/app/src/main/assets/" + dogFoodFile);
+            FileReader fr = new FileReader("NutriDog/app/src/main/assets/" + dogFoodFile);
             br = new BufferedReader(fr);
 
             String str = br.readLine();
