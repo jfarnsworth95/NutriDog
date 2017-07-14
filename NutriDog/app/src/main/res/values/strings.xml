@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">NutriDog</string>
     <string name="searchable">searchable</string>
-    <string name="testString">testString</string>
 </resources>
