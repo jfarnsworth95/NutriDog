@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -40,8 +42,10 @@ public class SearchableActivity extends ListActivity {
         BufferedReader br = null;
 
         try{
-            FileReader fr = new FileReader("NutriDog/app/src/main/assets/" + dogFoodFile);
-            br = new BufferedReader(fr);
+            //I'd test this properly, but I've wasted 4 fucking days trying to get Android Studio's
+            //stupid setup to work. So, if this breaks, I'll fix it the hard way.
+            InputStream is = getAssets().open("cleanDogFood.csv");
+            br = new BufferedReader(new InputStreamReader(is));
 
             String str = br.readLine();
             while (str != null){
