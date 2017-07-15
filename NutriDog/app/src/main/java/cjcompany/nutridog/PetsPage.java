@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+// Handle extra files with:
+// https://developer.android.com/guide/topics/data/data-storage.html#filesInternal
+
 /**
  * Created by Jackson on 6/20/2017.
  */
@@ -15,7 +18,8 @@ public class PetsPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pets);
 
-        //if pets.csv exists, use createPetButtons
+        //if pets.csv has
+
 
         //if pets.csv does not exist, use newPetForm
     }

@@ -67,6 +67,8 @@ public class SearchableActivity extends ListActivity {
                         }
                     }
                 }
+                str = br.readLine(); //moves to calories
+                str = br.readLine(); //now back to food names
             }
         }
         catch (FileNotFoundException ex){

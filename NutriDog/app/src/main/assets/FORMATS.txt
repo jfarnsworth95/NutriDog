@@ -1,0 +1,21 @@
+cleanDogFood.csv
+BRAND,foodName_1,foodName_2,foodName_3,...          (STRING)
+0,food1_Calories,food2_Calories,food3_Calories,...  (INT)
+Brand2,foodName_1,foodName_2,foodName_3,...         (STRING)
+0,food1_Calories,food2_Calories,food3_Calories,...  (STRING)
+...
+
+pets.csv
+Name,Weight,Height,Breed                            (STRING,INT,INT,STRING)
+Exercise_1,Exercise_2,Exercise_3,...                (STRING)
+
+Data file for each pet (File name is DogName_DailyData.txt)
+Date,TotalCalories                                  (STRING,INT)
+BreakfastFoodName,FoodCalories                      (STRING,INT)
+LunchFoodName,FoodCalories                          (STRING,INT)
+DinnerFoodName,FoodCalories                         (STRING,INT)
+SnackFoodName,FoodCalories                          (STRING,INT)
+ExerciseName_1,TimeSpent,ExerciseName_2,TimeSpent   (STRING,INT,STRING,INT,...)
+
+
+
