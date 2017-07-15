@@ -2,12 +2,15 @@ package cjcompany.nutridog;
 
 import android.app.ListActivity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,8 +47,13 @@ public class SearchableActivity extends ListActivity {
         try{
             //I'd test this properly, but I've wasted 4 fucking days trying to get Android Studio's
             //stupid setup to work. So, if this breaks, I'll fix it the hard way.
-            InputStream is = getAssets().open("cleanDogFood.csv");
-            br = new BufferedReader(new InputStreamReader(is));
+            FileInputStream fis = openFileInput(dogFoodFile);
+            fis.read();
+            fis.close();
+
+
+
+            br = new BufferedReader(new InputStreamReader(fis));
 
             String str = br.readLine();
             while (str != null){

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NutriDog</string>
     <string name="searchable">searchable</string>
+    <string name="dogFoodFile">cleanDogFood.csv</string>
+    <string name="petsFile">pets.csv</string>
+
 </resources>
