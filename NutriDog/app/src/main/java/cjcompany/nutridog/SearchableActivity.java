@@ -48,11 +48,6 @@ public class SearchableActivity extends ListActivity {
             //I'd test this properly, but I've wasted 4 fucking days trying to get Android Studio's
             //stupid setup to work. So, if this breaks, I'll fix it the hard way.
             FileInputStream fis = openFileInput(dogFoodFile);
-            fis.read();
-            fis.close();
-
-
-
             br = new BufferedReader(new InputStreamReader(fis));
 
             String str = br.readLine();

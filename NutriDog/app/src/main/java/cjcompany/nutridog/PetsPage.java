@@ -5,6 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 // Handle extra files with:
 // https://developer.android.com/guide/topics/data/data-storage.html#filesInternal
 
@@ -13,44 +20,98 @@ import android.view.View;
  */
 public class PetsPage extends AppCompatActivity {
 
+    BufferedReader br;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pets);
 
-        //if pets.csv has
+        try {
+            FileInputStream fis = openFileInput("pets.csv");
+            br = new BufferedReader(new InputStreamReader(fis));
+            String str = br.readLine();
 
-
-        //if pets.csv does not exist, use newPetForm
+            //if pets.csv has no pets, use newPetForm()
+            if(str == null){
+                br.close();
+                newPetForm();
+            }
+            //if pets.csv has entries, use createPetButtons()
+            else{
+                createPetButtons(str);
+            }
+        }catch (FileNotFoundException ex){
+            System.err.println("PET FILE MISSING: REMOVED SINCE STARTUP");
+        }catch(IOException ex){
+            System.err.println("UNEXPECTED IO EXCEPTION");
+        }finally {
+            try{
+                if(br != null){
+                    br.close();
+                }
+            }catch(IOException ex){
+                System.err.println("UNEXPECTED ERROR");
+            }
+        }
     }
 
-    public void createPetButtons(){
+    //TODO
+    public void createPetButtons(String firstLine){
+        setContentView(R.layout.activity_pets_list);
+        ArrayList<String[]> dogInfos = new ArrayList<String[]>();
+        dogInfos.add(firstLine.split(","));
+
         //find pets from sheet
-        //creates square buttons in two columns
-        //creates addNewPet button at bottom
+        try{
+            String str = br.readLine();
+            while(str != null){
+                dogInfos.add(str.split(","));
+                str= br.readLine();
+            }
+
+        }catch(IOException ex){
+            System.err.println("UNEXPECTED IO EXCEPTION");
+        }finally{
+            if(br != null){
+                try {
+                    br.close();
+                }catch(IOException ex){
+                    System.err.println("VERY WEIRD ERROR IN: createPetButtons");
+                }
+            }
+        }
+
+        //TODO creates square buttons in the two columns
+
+        //TODO creates addNewPet button at bottom
+
+        //TODO create RemovePetButton
     }
 
+    //TODO
     public void newPetForm(){
-        //following textEdit fields:
-            //name
-            //breed
-            //height
-
-        //maybe allow input picture of dog? (limit resolution, save only whats req.)
-        //keep pictures for timeline?
-
-        //then submit button
-
-        //from breed, generate:
-            //envrionment? waiting on Cary for these.
-            //excersises?
+        setContentView(R.layout.activity_pets_addnew);
     }
 
-    private void onSubmitButton(){
-        //save dog info to pets.csv
-        //reload page (check how to clear injected XML code, if even necessary)
+    //TODO
+    private void onAddPet(View view){
+        //TODO save dog info to pets.csv
+
+
+        //reload page
+        try {
+            FileInputStream fis = openFileInput("pets.csv");
+            br = new BufferedReader(new InputStreamReader(fis));
+            String str = br.readLine();
+            createPetButtons(str);
+        }catch (FileNotFoundException ex){
+            System.err.println("PET FILE MISSING: REMOVED SINCE STARTUP");
+        }catch(IOException ex){
+            System.err.println("UNEXPECTED IO EXCEPTION");
+        }
     }
 
+    //TODO
     private void onNewPetButton(){
         //clear previous injected XML code
             /* if no clear is needed, remove this method and set
@@ -58,6 +119,7 @@ public class PetsPage extends AppCompatActivity {
             */
     }
 
+    //TODO
     public void goTo_PetInfo(View view){
         Intent intent = new Intent(this, VetsPage.class);
         //add pet reference to EXTRA_MESSAGE

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".PetsPage">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/petName"
+        android:hint="Your pet's name"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Your pet's weight"
+        android:id="@+id/petWeight" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Your pet's age"
+        android:id="@+id/petAge" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/petGender"
+        android:hint="Your pet's gender"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/petBreed"
+        android:hint="Your pet's breed"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:id="@+id/petHeightFeet"
+            android:hint="Your pet's height in feet"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:id="@+id/petHeightInches"
+            android:hint="Your pet's remaining height in inches"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:onClick="onAddPet"/>
+
+</LinearLayout>
+
+
+
+<!--
+following textEdit fields:
+    name
+    weight
+    age
+    gender
+    breed
+    height
+
+        //maybe allow input picture of dog? (limit resolution, save only whats req.)
+        //keep pictures for timeline?
+
+        //then submit button
+
+ -->
