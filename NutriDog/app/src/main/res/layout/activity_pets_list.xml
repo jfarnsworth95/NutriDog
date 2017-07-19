@@ -1,43 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PetsPage">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:id="@+id/petsList_sv"
+        android:layout_above="@id/submitBtnRLayout"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:baselineAligned="false"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/Pets_leftColumn">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:baselineAligned="false"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/pets_leftColumn">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/pets_rightColumn">
+
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/Pets_rightColumn">
-
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/submitBtnRLayout"
+    >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:text="Add New Pet"
+            android:id="@+id/addNewPetBtn"
+            android:layout_margin="10dp"
+            android:onClick="onNewPetBtnClicked"
+        />
+    </RelativeLayout>
+
+</RelativeLayout>
 
 <!-- All layout info will be generated via XML injection in PetsPage.class -->

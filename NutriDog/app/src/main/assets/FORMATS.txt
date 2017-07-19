@@ -6,9 +6,9 @@ Brand2,foodName_1,foodName_2,foodName_3,...         (STRING)
 ...
 
 pets.csv
-Name,Age,Weight,Height,Breed,Gender                 (STRING,INT,INT,INT,STRING,STRING)
+Name,UniqueID,Age,Weight,Height,Breed,Gender        (STRING,INT,INT,INT,INT,STRING,STRING)
 
-Data file for each pet (File name is DogName_DailyData.txt)
+Data file for each pet (File name is DogName_Data_UniqueID.txt)
 Date,TotalCalories                                  (STRING,INT)
 BreakfastFoodName,FoodCalories                      (STRING,INT)
 LunchFoodName,FoodCalories                          (STRING,INT)
