@@ -13,12 +13,14 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:id="@+id/petName"
         android:hint="Your pet's name"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:inputType="number"
         android:hint="Your pet's weight"
         android:id="@+id/petWeight" />
@@ -26,6 +28,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:inputType="number"
         android:hint="Your pet's age"
         android:id="@+id/petAge" />
@@ -33,59 +36,57 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/petGender"
-        android:hint="Your pet's gender"/>
+        android:layout_weight="1"
+        android:id="@+id/petBreed"
+        android:hint="Your pet's breed"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/petBreed"
-        android:hint="Your pet's breed"/>
+        android:layout_weight="1"
+        android:inputType="number"
+        android:id="@+id/petHeightInches"
+        android:hint="Your pet's height in inches"/>
 
-    <LinearLayout
+    <RadioGroup
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/petGender">
 
-        <EditText
+        <RadioButton
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:id="@+id/petHeightFeet"
-            android:hint="Your pet's height in feet"/>
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:id="@+id/radioBtn_male"
+            android:text="Male" />
 
-        <EditText
+        <RadioButton
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:id="@+id/petHeightInches"
-            android:hint="Your pet's remaining height in inches"/>
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:id="@+id/radioBtn_female"
+            android:text="Female"/>
 
-    </LinearLayout>
+    </RadioGroup>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="Submit"
-        android:onClick="onSubmitNewPet"/>
+        android:id="@+id/btn_submitNewPet"/>
+        <!-- android:onClick="onSubmitNewPet" - onClick set in method where this layout is called-->
+
 
 </LinearLayout>
 
 
 
 <!--
-following textEdit fields:
-    name
-    weight
-    age
-    gender
-    breed
-    height
-
         //maybe allow input picture of dog? (limit resolution, save only whats req.)
         //keep pictures for timeline?
-
-        //then submit button
-
  -->
