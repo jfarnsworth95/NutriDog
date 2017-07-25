@@ -75,13 +75,11 @@ public class StartPage extends AppCompatActivity {
 
     public void goTo_VetsPage(View view){
         Intent intent = new Intent(this, VetsPage.class);
-        //intent.putExtra(EXTRA_MESSAGE, androidId);
         startActivity(intent);
     }
 
     public void goTo_ToysPage(View view){
         Intent intent = new Intent(this, ToysPage.class);
-        //intent.putExtra(EXTRA_MESSAGE, androidId);
         startActivity(intent);
     }
 

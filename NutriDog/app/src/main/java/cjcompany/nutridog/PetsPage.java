@@ -5,17 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -37,6 +32,9 @@ import java.util.Random;
 public class PetsPage extends AppCompatActivity {
 
     BufferedReader br;
+    public final static String PET_NAME = "com.cjcompany.nutridog.PET_NAME";
+    public final static String PET_ID = "com.cjcompany.nutridog.PET_ID";
+    public final static String PET_INFO = "com.cjcompany.nutridog.PET_INFO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,18 +129,24 @@ public class PetsPage extends AppCompatActivity {
         LinearLayout rightColumn = (LinearLayout) findViewById(R.id.pets_rightColumn);
 
         for(int even = 0; even < dogInfos.size(); even +=2){
-            Button newLeftButton = createButton(dogInfos.get(even)[0],dogInfos.get(even)[1]);
+            Button newLeftButton = createButton(dogInfos.get(even)[0],dogInfos.get(even)[1],dogInfos.get(even));
             leftColumn.addView(newLeftButton);
         }
         if(dogInfos.size() > 1){
             for(int odd = 1; odd < dogInfos.size(); odd += 2){
-                Button newRightButton = createButton(dogInfos.get(odd)[0],dogInfos.get(odd)[1]);
+                Button newRightButton = createButton(dogInfos.get(odd)[0],dogInfos.get(odd)[1],dogInfos.get(odd));
                 rightColumn.addView(newRightButton);
             }
         }
     }
 
-    private Button createButton(final String name, final String uniqueID){
+    /**
+     * Creates the button object to be placed in View. Also establishes the connection to PetInfoPage.class.
+     * @param name name of the pet
+     * @param uniqueID id of the pet
+     * @return the button representing a pet
+     */
+    private Button createButton(final String name, final String uniqueID, final String[] dogInfo){
         //sets height, width, text size, and margin in R.id.btn_pet
         final Button btn = (Button) findViewById(R.id.btn_pet);
         btn.setText(name);
@@ -152,10 +156,10 @@ public class PetsPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), PetInfoPage.class);
-                //add pet reference to EXTRA_MESSAGE
                 //intent.putExtra(EXTRA_MESSAGE, androidId);
-                intent.putExtra("DOGS_NAME",name);
-                intent.putExtra("DOGS_ID",uniqueID);
+                intent.putExtra(PET_NAME,name);
+                intent.putExtra(PET_ID,uniqueID);
+                intent.putExtra(PET_INFO,dogInfo);
                 startActivity(intent);
             }
         });

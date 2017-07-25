@@ -101,6 +101,7 @@ tools:context=".PetInfoPage">
             android:onClick=""
             android:id="@+id/btn_petBreakfast"
             android:textSize="30sp"
+            android:tag="Breakfast"
         />
 
     </LinearLayout>
@@ -131,6 +132,7 @@ tools:context=".PetInfoPage">
             android:onClick=""
             android:id="@+id/btn_petLunch"
             android:textSize="30sp"
+            android:tag="Lunch"
         />
 
     </LinearLayout>
@@ -162,8 +164,39 @@ tools:context=".PetInfoPage">
             android:onClick=""
             android:id="@+id/btn_petDinner"
             android:textSize="30sp"
+            android:tag="Dinner"
+            />
+    </LinearLayout>
+
+    <!-- Snack Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2">
+
+        <TextView
+            android:text="Snacks"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:textIsSelectable="false"
+            android:textSize="30sp"
+            android:textStyle="bold"
             />
 
+        <!-- Jumps to snack info page
+             label name on button should be food set in class file -->
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="4"
+            android:text="----"
+            android:onClick="goTo_MealPage"
+            android:id="@+id/btn_petSnack"
+            android:textSize="30sp"
+            android:tag="Snack"
+            />
     </LinearLayout>
 
     <Button
@@ -171,7 +204,7 @@ tools:context=".PetInfoPage">
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="History"
-        android:onClick=""
+        android:onClick="goTo_PetHistory"
         android:id="@+id/btn_petHistory"
     />
 
