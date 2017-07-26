@@ -26,7 +26,7 @@ public class StartPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Check if extra files exist
+        //Check if extra internal files exist
         //If does not exist, create file
         //https://developer.android.com/guide/topics/data/data-storage.html#filesInternal
         if(!fileExistence("cleanDogFood.csv")){

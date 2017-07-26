@@ -215,6 +215,7 @@ public class PetInfoPage extends AppCompatActivity {
 
     public void goTo_MealPage(View view){
         Intent intent = new Intent(this, MealPage.class);
+        //Tag can be (Breakfast, Lunch, Dinner, Snack)
         String meal = view.getTag().toString();
         intent.putExtra(MEAL, meal);
         startActivity(intent);
