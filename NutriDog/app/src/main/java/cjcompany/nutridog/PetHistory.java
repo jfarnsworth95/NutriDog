@@ -111,6 +111,7 @@ public class PetHistory extends AppCompatActivity {
 
             String[] exercises = currentDataList[3].split(",");
 
+            //TODO inject data into template and inject template into view
             
         }
     }
