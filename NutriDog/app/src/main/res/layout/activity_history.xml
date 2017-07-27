@@ -11,7 +11,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/addItemHistoryHere">
 
 
 
@@ -20,10 +21,16 @@
     </ScrollView>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="8dp"
+        android:text="Back"
+        android:textColor="@color/backBtnText"
         android:id="@+id/btn_leaveHistory"
-        android:onClick="closeActivity"/>
+        android:onClick="closeActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true"
+        android:background="@color/backBtn"/>
 
 </RelativeLayout>

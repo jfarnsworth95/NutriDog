@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -21,6 +24,7 @@ public class PetHistory extends AppCompatActivity {
 
     String petName;
     String petID;
+    ArrayList<String[]> collectedData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +35,15 @@ public class PetHistory extends AppCompatActivity {
         petID = intent.getStringExtra(PetInfoPage.PET_ID);
 
         setContentView(R.layout.activity_history);
-        //TODO collect data from file to display [if null, failure occured, abort with finish()]
-        //TODO inject data from file into view
+        //collect data from file to display [if null, failure occured, abort with finish()]
+        collectedData = collectData();
+        if(collectedData.size() == 0){
+            finish();
+        }else{
+            //inject data from file into view
+            injectDates(collectedData);
+        }
+
     }
 
     public ArrayList<String[]> collectData(){
@@ -84,35 +95,71 @@ public class PetHistory extends AppCompatActivity {
         return null;
     }
 
-    public void injectData(ArrayList<String[]> dataForDays){
-        //for getting name of month
-        Calendar c = Calendar.getInstance();
+    public void injectDates(ArrayList<String[]> data){
 
+        LinearLayout ll = (LinearLayout) findViewById(R.id.addItemHistoryHere);
+
+        for(int i = data.size() -1; i > 0; i --){
+            //set the date as the button text
+            Button btn = (Button) findViewById(R.id.btn_itemHistory);
+            String[] dateAndCal = data.get(i)[0].split(",");
+            String month = getMonthName(Integer.getInteger(dateAndCal[1]));
+            btn.setText(month + " " + dateAndCal[0] + ", " + dateAndCal[2]);
+            final String[] dataForDay = data.get(i);
+
+            //set a listener
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setContentView(R.layout.item_history);
+                    detailedHistory(dataForDay);
+                }
+            });
+
+            //add btn to linear layout inside scroll layout
+            ll.addView(btn);
+        }
+    }
+
+    public void detailedHistory(String[] dataForDay){
         //goes from most recent (bottom of doc) to least recent (top of doc)
-        for(int i = dataForDays.size() -1; i > 0; i --){
-            TextView tv = new TextView(this);
-            String[] currentDataList = dataForDays.get(i);
 
-            String[] firstLine = currentDataList[0].split(",");
-            String monthName = getMonthName(Integer.getInteger(firstLine[1]));
-            String date = monthName + " " + firstLine[0] + " " + firstLine[2];
+        TextView tv = new TextView(this);
 
-            String[] meals = currentDataList[1].split(",");
-            String breakfast = meals[0];
-            String lunch = meals[1];
-            String dinner = meals[2];
-            String snack = meals[3];
+        String[] firstLine = dataForDay[0].split(",");
+        String monthName = getMonthName(Integer.getInteger(firstLine[1]));
+        String date = monthName + " " + firstLine[0] + " " + firstLine[2];
 
-            String[] mealCalories = currentDataList[2].split(",");
-            String breakfastCal = mealCalories[0];
-            String lunchCal = mealCalories[1];
-            String dinnerCal = mealCalories[2];
-            String snackCal = mealCalories[3];
+        //meal names
+        String[] meals = dataForDay[1].split(",");
+        String breakfast = meals[0];
+        String lunch = meals[1];
+        String dinner = meals[2];
+        String snack = meals[3];
 
-            String[] exercises = currentDataList[3].split(",");
+        //meal calories
+        String[] mealCalories = dataForDay[2].split(",");
+        String breakfastCal = mealCalories[0];
+        String lunchCal = mealCalories[1];
+        String dinnerCal = mealCalories[2];
+        String snackCal = mealCalories[3];
 
-            //TODO inject data into template and inject template into view
-            
+        String[] exercises = dataForDay[3].split(",");
+
+        //inject data into view
+        TextView bTV = (TextView) findViewById(R.id.item_breakfast);
+        bTV.setText(breakfast + ": " + breakfastCal);
+        TextView lTV = (TextView) findViewById(R.id.item_lunch);
+        bTV.setText(lunch + ": " + lunchCal);
+        TextView dTV = (TextView) findViewById(R.id.item_dinner);
+        bTV.setText(dinner + ": " + dinnerCal);
+        TextView sTV = (TextView) findViewById(R.id.item_snack);
+        bTV.setText(snack + ": " + snackCal);
+        LinearLayout exLL = (LinearLayout) findViewById(R.id.item_exercises);
+        for(int ex = 0; ex < exercises.length; ex ++){
+            TextView eTV = new TextView(this);
+            eTV.setText(exercises[ex]);
+            exLL.addView(eTV);
         }
     }
 
