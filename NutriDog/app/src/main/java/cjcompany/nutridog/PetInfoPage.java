@@ -27,6 +27,7 @@ public class PetInfoPage extends AppCompatActivity {
     public final static String MEAL = "com.cjcompany.nutridog.MEAL";
     public final static String PET_NAME = "com.cjcompany.nutridog.PET_NAME";
     public final static String PET_ID = "com.cjcompany.nutridog.PET_ID";
+    public final static String DATE = "com.cjcompany.nutridog.DATE";
     String petName;
     String petID;
     String[] petInfo;
@@ -93,6 +94,7 @@ public class PetInfoPage extends AppCompatActivity {
                     str = br.readLine(); //moves to exercises
                     str = br.readLine(); //moves to dates and total calories
                 }
+                //if the day does not exist in file, taken care of below
                 br.close();
                 fis.close();
             }
@@ -217,7 +219,16 @@ public class PetInfoPage extends AppCompatActivity {
         Intent intent = new Intent(this, MealPage.class);
         //Tag can be (Breakfast, Lunch, Dinner, Snack)
         String meal = view.getTag().toString();
+        Calendar c = Calendar.getInstance();
+        String year = Integer.toString(c.get(Calendar.YEAR));
+        String month = Integer.toString(c.get(Calendar.MONTH));
+        String day = Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+        String date = day + "," + month + "," + year;
+
         intent.putExtra(MEAL, meal);
+        intent.putExtra(DATE, date);
+        intent.putExtra(PET_NAME, petName);
+        intent.putExtra(PET_ID, petID);
         startActivity(intent);
     }
 

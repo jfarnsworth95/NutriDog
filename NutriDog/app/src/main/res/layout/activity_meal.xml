@@ -15,15 +15,15 @@
         android:layout_weight="1"
         android:padding="10dp">
 
-        <SearchView
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/search_bar"
             android:hint="Enter food name here"
-            android:iconifiedByDefault="false"
             android:gravity="center"
             android:foregroundGravity="center_vertical"
             android:layout_weight="6">
-        </SearchView>
+        </EditText>
 
         <Button
             android:layout_width="wrap_content"
@@ -33,6 +33,21 @@
             android:layout_gravity="right"
             android:layout_weight="1"/>
     </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollList">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:choiceMode="none">
+
+        </ListView>
+
+    </ScrollView>
 
     <TextView
         android:layout_width="match_parent"
@@ -48,12 +63,13 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/mealCalories"
         android:hint="How much?"
         android:layout_weight="3"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:layout_margin="10dp"
+        android:inputType="number"
     />
 
     <Button
@@ -64,6 +80,7 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:layout_weight="1"
+        android:onClick="getOnSubmit"
     />
 
 
