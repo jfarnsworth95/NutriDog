@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -41,7 +41,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:text="Pets"
         android:onClick="goTo_PetsPage"
         android:id="@+id/btn_goToPetsPage"
@@ -52,13 +52,14 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:text="Nearby Vets"
         android:onClick="goTo_VetsPage"
         android:id="@+id/btn_goToVetsPage"
         android:textSize="30dp"
     />
 
+    <!--
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -68,6 +69,7 @@
         android:id="@+id/btn_goToToysPage"
         android:textSize="30dp"
     />
+    -->
 
 
 </LinearLayout>

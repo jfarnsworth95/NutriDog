@@ -78,11 +78,6 @@ public class StartPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goTo_ToysPage(View view){
-        Intent intent = new Intent(this, ToysPage.class);
-        startActivity(intent);
-    }
-
     /**
      *Used to find if internal files already exist on start up. Method from: <p></p>
      * https://stackoverflow.com/questions/10576930/trying-to-check-if-a-file-exists-in-internal-storage
