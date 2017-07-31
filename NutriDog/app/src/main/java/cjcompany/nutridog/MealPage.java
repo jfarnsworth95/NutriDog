@@ -1,5 +1,6 @@
 package cjcompany.nutridog;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -32,7 +35,6 @@ public class MealPage extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
 
-    //TODO make sure info is saved when device moves away from app
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //should be passed string var of "Breakfast", "Lunch", or "Dinner"
@@ -75,7 +77,9 @@ public class MealPage extends AppCompatActivity {
         });
     }
 
-    // get data
+    /**
+     * Get data and save to pet data file
+     */
     public void getOnSubmit(View view){
         EditText foodNameField = (EditText)findViewById(R.id.search_bar);
         String foodName = foodNameField.getText().toString();
@@ -85,8 +89,11 @@ public class MealPage extends AppCompatActivity {
         modifyFile(foodName,calories);
     }
 
-    //modify file for pet data
-    public void modifyFile(String foodName, String Calories){
+    /**
+     * modify file for pet data, can be easily updated to allow user to modify meals in history
+     *
+     */
+    public void modifyFile(String foodName, String foodCalories){
         String[] splitDate = date.split(",");
         String day = splitDate[0];
         String month = splitDate[1];
@@ -97,16 +104,69 @@ public class MealPage extends AppCompatActivity {
             FileInputStream fis = openFileInput(petName + "_data_" + petID + ".csv");
             br = new BufferedReader(new InputStreamReader(fis));
 
+            FileOutputStream outputStream = openFileOutput("tempFile.csv", Context.MODE_PRIVATE);
+
             String str = br.readLine();
             if(str.equals("")){
-                System.err.println("Shits fucked brah");
-            }
-            while (str != null){
-                //TODO search for date
-                String[] fileDateSplit = str.split(",");
-                if(fileDateSplit[0].equals(day) && fileDateSplit[1].equals(month) && fileDateSplit[2].equals(year)){
-                    //TODO currently in desired date, modify based on meal
+                System.err.println("Error in PetInfoPage file date creation method");
+            }else {
+                while (str != null) {
+                    //write to tmp file
+                    outputStream.write(str.getBytes());
+
+                    //search for date
+                    String[] fileDateSplit = str.split(",");
+                    if (fileDateSplit[0].equals(day) && fileDateSplit[1].equals(month) && fileDateSplit[2].equals(year)) {
+
+                        //currently in desired date, modify based on meal
+                        str = br.readLine(); //move to food
+                        String[] foods = str.split(",");
+                        str = br.readLine(); //move to calories
+                        String[] calories = str.split(",");
+
+                        if(meal.equals("Breakfast")){
+                            foods[0] = foodName;
+                            stringListToCSV_String(foods);
+                            calories[0] = foodCalories;
+                            stringListToCSV_String(calories);
+                        }else if(meal.equals("Lunch")){
+                            foods[1] = foodName;
+                            stringListToCSV_String(foods);
+                            calories[1] = foodCalories;
+                            stringListToCSV_String(calories);
+                        }else if(meal.equals("Dinner")){
+                            foods[2] = foodName;
+                            stringListToCSV_String(foods);
+                            calories[2] = foodCalories;
+                            stringListToCSV_String(calories);
+                        }else if(meal.equals("Snack")){
+                            foods[3] = foodName;
+                            stringListToCSV_String(foods);
+                            calories[3] = foodCalories;
+                            stringListToCSV_String(calories);
+                        }else{
+                            System.err.println("Unexpected tag recieved for meal");
+                        }
+
+
+                        //reset and move on
+                        br.readLine(); //exercise
+                        str = br.readLine(); //back to date for next entry
+
+
+                    }else{
+                        br.readLine(); //food
+                        br.readLine(); //calories
+                        br.readLine(); //exercise
+                        str = br.readLine(); //back to date for next entry
+                    }
                 }
+
+                //delete old file, rename new file
+                File oldFile = new File(getFilesDir(),petName + "_Data_" + petID + ".csv");
+                oldFile.delete();
+                File newFile = new File(getFilesDir(), "tempFile.csv");
+                newFile.renameTo(new File(petName + "_Data_" + petID + ".csv"));
             }
         }
         catch (FileNotFoundException ex){
@@ -127,6 +187,20 @@ public class MealPage extends AppCompatActivity {
             }
         }
     }
+
+    private String stringListToCSV_String(String[] strLst){
+        String str = "";
+        if(strLst.length == 0){
+            return "";
+        }else {
+            str = strLst[0];
+            for (int i = 1; i < strLst.length; i++) {
+                str += "," + strLst[i];
+            }
+        }
+        return str;
+    }
+
 
 
 }
