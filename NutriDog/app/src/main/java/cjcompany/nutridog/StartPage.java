@@ -2,18 +2,20 @@ package cjcompany.nutridog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 
 //For help storing credentials for Git command line:
 //      $ git config credential.helper store
@@ -73,8 +75,38 @@ public class StartPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goTo_VetsPage(View view){
-        Intent intent = new Intent(this, VetsPage.class);
+    public void goTo_VetsGoogleMaps(View view){
+
+        double longitude = 0;
+        double latitude = 0;
+
+        //get latitude and longitude
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        try {
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        }catch(SecurityException ex){
+
+            Context context = getApplicationContext();
+            CharSequence text = "Application requires GPS to search via Google Maps";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            return;
+        }
+
+        //start google maps
+        //https://developers.google.com/maps/documentation/urls/android-intents
+        Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude + "?q=veterinarian");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
+
+    public void goTo_RecommendedVetsPage(View view){
+        Intent intent = new Intent(this, RecommendedVetsPage.class);
         startActivity(intent);
     }
 

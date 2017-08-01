@@ -124,8 +124,6 @@ public class PetHistory extends AppCompatActivity {
     public void detailedHistory(String[] dataForDay){
         //goes from most recent (bottom of doc) to least recent (top of doc)
 
-        TextView tv = new TextView(this);
-
         String[] firstLine = dataForDay[0].split(",");
         String monthName = getMonthName(Integer.getInteger(firstLine[1]));
         String date = monthName + " " + firstLine[0] + " " + firstLine[2];
