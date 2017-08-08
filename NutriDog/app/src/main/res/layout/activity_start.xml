@@ -21,7 +21,7 @@
         android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/NutriDog"/>
+        android:background="@drawable/nutridog"/>
 
     <!--
     <TextView
