@@ -37,6 +37,26 @@
 
         </activity>
 
+        <activity
+            android:name=".PetsPage"
+            android:label="PetsPage" >
+        </activity>
+
+        <activity
+            android:name=".RecommendedVetsPage"
+            android:label="RecommendedVetsPage" >
+        </activity>
+
+        <activity
+            android:name=".PetInfoPage"
+            android:label="PetInfoPage" >
+        </activity>
+
+        <activity
+            android:name=".PetHistory"
+            android:label="PetHistory" >
+        </activity>
+
     </application>
 
 </manifest>

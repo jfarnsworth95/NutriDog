@@ -70,6 +70,7 @@ public class PetsPage extends AppCompatActivity {
     }
 
     public void createPetButtons(){
+        System.out.println("Creating buttons");
         try {
             FileInputStream fis = openFileInput("pets.csv");
             br = new BufferedReader(new InputStreamReader(fis));
@@ -326,74 +327,8 @@ public class PetsPage extends AppCompatActivity {
         }
 
         //reload page
+        System.out.println("Entered Pet Info"); //TODO REMOVE AFTER TEST
         createPetButtons();
     }
 
 }
-
-/*
-
-    ******  EXAMPLE CODE FOR XML INJECTION  ******
-
-    public void createTableView() {
-        //make all list elements buttons that change color when pressed
-        //insert totalPlayers variable
-        int totalPlayers = 0;
-
-        TableLayout tl = (TableLayout) findViewById(R.id.voteTable);
-
-        for (int i = 0; i < 10; i++) {
-            TableRow row = new TableRow(this);
-
-            for (int e = 0; e < totalPlayers; e++) {
-
-                CheckBox checkBox = new CheckBox(this);
-                checkBox.setText(acceptedAnswers.get(e));
-                row.addView(checkBox);
-            }
-
-            tl.addView(row);
-        }
-    }
-
-
-       ***** POP-UP MENU IDEA *****
-
-    PopupMenu popup = new PopupMenu(PetsPage.this, btn);
-        popup.getMenuInflater().inflate(R.menu.popup_pet_delete, popup.getMenu());
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-
-                //https://www.mkyong.com/android/android-alert-dialog-example/
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                // set title
-                alertDialogBuilder.setTitle("Are you sure you want to remove pet data?");
-                // set dialog message
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton("Delete",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // if this button is clicked, delete pet info
-                                deletePetInfo(name,uniqueID);
-                                Toast.makeText(PetsPage.this,"Deleted data for " + btn.getText(),Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // if this button is clicked, just close the dialog box and do nothing
-                                dialog.cancel();
-                            }
-                        });
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                // show it
-                alertDialog.show();
-                return true;
-            }
-        });
-        popup.show();//showing popup menu
-        return true;
-    }
-
-*/
-
