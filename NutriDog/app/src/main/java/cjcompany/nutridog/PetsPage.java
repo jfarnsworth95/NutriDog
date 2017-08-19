@@ -281,8 +281,8 @@ public class PetsPage extends AppCompatActivity {
 
             String newPetData = ""; //Name,UniqueID,Age,Weight,Height,Breed,Gender
             EditText petName = (EditText) findViewById(R.id.petName);
-            newPetData += "," + petName.getText().toString();
-            name = petName.getText().toString();
+            newPetData += "," + cleanInput(petName.getText().toString());
+            name = cleanInput(petName.getText().toString());
             Long petID = Math.abs(new Random().nextLong());
             newPetData += "," + new Long(petID).toString();
             id = new Long(petID).toString();
@@ -293,7 +293,7 @@ public class PetsPage extends AppCompatActivity {
             EditText petHeight = (EditText) findViewById(R.id.petHeightInches);
             newPetData += "," + petHeight.getText().toString();
             EditText petBreed = (EditText) findViewById(R.id.petBreed);
-            newPetData += "," + petBreed.getText().toString();
+            newPetData += "," + cleanInput(petBreed.getText().toString());
             RadioButton maleBtn = (RadioButton) findViewById(R.id.radioBtn_male);
             if(maleBtn.isChecked()){
                 newPetData += ",Male";
@@ -329,6 +329,13 @@ public class PetsPage extends AppCompatActivity {
         //reload page
         System.out.println("Entered Pet Info"); //TODO REMOVE AFTER TEST
         createPetButtons();
+    }
+
+    private String cleanInput(String str){
+        while(str.contains(",")){
+            str = str.replace(",","");
+        }
+        return str;
     }
 
 }

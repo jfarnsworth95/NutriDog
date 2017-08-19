@@ -43,7 +43,6 @@ public class PetInfoPage extends AppCompatActivity {
         setContentView(R.layout.activity_pets_list);
     }
 
-    //TODO method to bring up data for today / check if data exists for today
     public void collectScreenData(){
 
         //find current date
@@ -122,7 +121,7 @@ public class PetInfoPage extends AppCompatActivity {
     }
 
     /**
-     * method to update total used calories for the day and meal calories
+     * Method to update total used calories for the day and meal calories
      */
     public void setScreenData(String calorieLimit, String caloriesConsumed, String bf, String lnh, String dnr, String snk){
         //set calorie bar, if no entry, set to zero
