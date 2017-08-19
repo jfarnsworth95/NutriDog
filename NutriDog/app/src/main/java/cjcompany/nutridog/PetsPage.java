@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,15 +50,22 @@ public class PetsPage extends AppCompatActivity {
             if(str == null){
                 br.close();
                 setContentView(R.layout.activity_pets_addnew);
+                Button submitBtn = (Button) findViewById(R.id.btn_submitNewPet);
+                submitBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onSubmitNewPet(v);
+                    }
+                });
             }
             //if pets.csv has entries, use createPetButtons()
             else{
                 createPetButtons(str);
             }
         }catch (FileNotFoundException ex){
-            System.err.println("PET FILE MISSING: REMOVED SINCE STARTUP");
+            Log.e("PetsPage","PET FILE MISSING: REMOVED SINCE STARTUP");
         }catch(IOException ex){
-            System.err.println("UNEXPECTED IO EXCEPTION");
+            Log.e("PetsPage","UNEXPECTED IO EXCEPTION");
         }finally {
             try{
                 if(br != null){
@@ -70,7 +78,7 @@ public class PetsPage extends AppCompatActivity {
     }
 
     public void createPetButtons(){
-        System.out.println("Creating buttons");
+        Log.i("PetsPage","Creating buttons"); //TODO REMOVE AFTER TESTING
         try {
             FileInputStream fis = openFileInput("pets.csv");
             br = new BufferedReader(new InputStreamReader(fis));
@@ -101,6 +109,7 @@ public class PetsPage extends AppCompatActivity {
     }
 
     public void createPetButtons(String firstLine){
+        Log.i("PetsPage","File not empty, making buttons"); //TODO REMOVE AFTER TESTING
         setContentView(R.layout.activity_pets_list);
         ArrayList<String[]> dogInfos = new ArrayList<String[]>();
         dogInfos.add(firstLine.split(","));
@@ -257,12 +266,13 @@ public class PetsPage extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSubmitNewPet();
+                onSubmitNewPet(v);
             }
         });
     }
 
-    private void onSubmitNewPet() {
+    private void onSubmitNewPet(View view) {
+        Log.i("PetsPage","Clicked Submit"); //TODO REMOVE AFTER TESTING
         //save dog info to pets.csv
         //Name,UniqueID,Age,Weight,Height,Breed,Gender
         String name;
@@ -279,6 +289,7 @@ public class PetsPage extends AppCompatActivity {
                 str = br.readLine();
             }
 
+            //TODO check for empty values
             String newPetData = ""; //Name,UniqueID,Age,Weight,Height,Breed,Gender
             EditText petName = (EditText) findViewById(R.id.petName);
             newPetData += "," + cleanInput(petName.getText().toString());
@@ -327,10 +338,15 @@ public class PetsPage extends AppCompatActivity {
         }
 
         //reload page
-        System.out.println("Entered Pet Info"); //TODO REMOVE AFTER TEST
+        Log.i("PetsPage","Entered Pet Info"); //TODO REMOVE AFTER TEST
         createPetButtons();
     }
 
+    /**
+     * Removes any "," from user inputed values to prevent issues with the csv docs
+     * @param str String to clean
+     * @return String with no commas
+     */
     private String cleanInput(String str){
         while(str.contains(",")){
             str = str.replace(",","");
