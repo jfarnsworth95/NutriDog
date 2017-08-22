@@ -320,10 +320,9 @@ public class PetsPage extends AppCompatActivity {
 
             outputStream.close();
 
-            File oldFile = new File(getFilesDir(),"pets.cvs");
-            Boolean didDelete = oldFile.delete();
+            Boolean didDelete = deleteFile("pets.csv");
             File newFile = new File(this.getFilesDir(), "tempFile.csv");
-            Boolean didRename = newFile.renameTo(new File("pets.csv"));
+            Boolean didRename = newFile.renameTo(new File(getFilesDir() +"/pets.csv"));
 
             Log.i("PetsPage","Old File Deleted: " + didDelete);
             Log.i("PetsPage","Temp File Renamed: " + didRename);
