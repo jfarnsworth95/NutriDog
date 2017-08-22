@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 // Handle extra files with:
 // https://developer.android.com/guide/topics/data/data-storage.html#filesInternal
@@ -86,11 +87,13 @@ public class PetsPage extends AppCompatActivity {
 
             //if pets.csv has no pets, use newPetForm()
             if(str == null){
+                Log.i("PetsPage","No pets in file"); //TODO REMOVE AFTER TESTING
                 br.close();
                 setContentView(R.layout.activity_pets_addnew);
             }
             //if pets.csv has entries, use createPetButtons()
             else{
+                Log.i("PetsPage","Pets in file"); //TODO REMOVE AFTER TESTING
                 createPetButtons(str);
             }
         }catch (FileNotFoundException ex){
@@ -286,6 +289,7 @@ public class PetsPage extends AppCompatActivity {
 
             while(str != null) {
                 outputStream.write(str.getBytes());
+                Log.i("PetsPage","Writing: <" + str +"> to file"); //TODO REMOVE AFTER TESTING
                 str = br.readLine();
             }
 
@@ -311,14 +315,24 @@ public class PetsPage extends AppCompatActivity {
             }else{
                 newPetData += ",Female";
             }
+            Log.i("PetsPage","Writing: <" + newPetData + "> to file"); //TODO REMOVE AFTER TESTING
             outputStream.write(newPetData.getBytes());
 
             outputStream.close();
 
             File oldFile = new File(getFilesDir(),"pets.cvs");
-            oldFile.delete();
+            Boolean didDelete = oldFile.delete();
             File newFile = new File(this.getFilesDir(), "tempFile.csv");
-            newFile.renameTo(new File("pets.csv"));
+            Boolean didRename = newFile.renameTo(new File("pets.csv"));
+
+            Log.i("PetsPage","Old File Deleted: " + didDelete);
+            Log.i("PetsPage","Temp File Renamed: " + didRename);
+
+            if(!didDelete){
+                throw new Exception("pets.csv not deleted");
+            }else if(!didRename){
+                throw new Exception("tempFile.csv not renamed");
+            }
 
             //create dog's info file (Named it: DogName_Data_UniqueID.csv)
             FileOutputStream fos = openFileOutput(name + "_Data_" + id + ".csv", Context.MODE_PRIVATE);
@@ -326,14 +340,16 @@ public class PetsPage extends AppCompatActivity {
             fos.close();
 
         }catch(IOException ex){
-            System.err.println("UNEXPECTED ERROR");
-        }finally {
+            Log.e("PetsPage","IO exception while modifying the file");
+        }catch(Exception ex1){
+            Log.e("PetsPage","Error in file exchange");
+        }finally{
             try {
                 if (br != null) {
                     br.close();
                 }
             } catch (IOException ex) {
-                System.err.println("UNEXPECTED ERROR");
+                Log.e("PetsPage","IO exception while closing buffered reader");
             }
         }
 

@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,11 +36,12 @@ public class StartPage extends AppCompatActivity {
             createCleanDogFoodFile();
         }
         if(!fileExistence("pets.csv")){
+            Log.i("StartPage","Creating pets.csv"); //TODO REMOVE AFTER TESTING
             File file = new File(this.getFilesDir(), "pets.csv");
             try {
                 file.createNewFile();
             }catch (IOException ex){
-                System.out.println("ERROR IN CREATING pets.cvs FILE");
+                Log.i("StartPage","ERROR CREATING pets.csv FILE");
             }
         }
 
@@ -51,6 +53,7 @@ public class StartPage extends AppCompatActivity {
      * //https://developer.android.com/training/basics/data-storage/files.html
      */
     public void createCleanDogFoodFile(){
+        Log.i("StartPage","Creating cleanDogFood.csv"); //TODO REMOVE AFTER TESTING
         FileOutputStream outputStream;
         try {
             outputStream = openFileOutput("cleanDogFood.csv", Context.MODE_PRIVATE);
@@ -65,6 +68,7 @@ public class StartPage extends AppCompatActivity {
 
             outputStream.close();
         } catch (Exception e) {
+            Log.i("StartPage","ERROR CREATING cleanDogFood.csv FILE");
             e.printStackTrace();
         }
     }
@@ -119,6 +123,7 @@ public class StartPage extends AppCompatActivity {
      */
     public boolean fileExistence(String fname){
         File file = getBaseContext().getFileStreamPath(fname);
+        Log.i("StartPage",fname + " " + file.exists());
         return file.exists();
     }
 }
