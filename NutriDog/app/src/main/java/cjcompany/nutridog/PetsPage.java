@@ -296,7 +296,7 @@ public class PetsPage extends AppCompatActivity {
             //TODO check for empty values
             String newPetData = ""; //Name,UniqueID,Age,Weight,Height,Breed,Gender
             EditText petName = (EditText) findViewById(R.id.petName);
-            newPetData += "," + cleanInput(petName.getText().toString());
+            newPetData += cleanInput(petName.getText().toString());
             name = cleanInput(petName.getText().toString());
             Long petID = Math.abs(new Random().nextLong());
             newPetData += "," + new Long(petID).toString();
