@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -163,10 +164,12 @@ public class MealPage extends AppCompatActivity {
                 }
 
                 //delete old file, rename new file
-                File oldFile = new File(getFilesDir(),petName + "_Data_" + petID + ".csv");
-                oldFile.delete();
+                boolean didDelete = deleteFile(petName + "_Data_" + petID + ".csv");
                 File newFile = new File(getFilesDir(), "tempFile.csv");
-                newFile.renameTo(new File(petName + "_Data_" + petID + ".csv"));
+                Boolean didRename = newFile.renameTo(new File(getFilesDir(),"/" + petName + "_Data_" + petID + ".csv"));
+
+                Log.i("PetsPage","Old File Deleted: " + didDelete);
+                Log.i("PetsPage","Temp File Renamed: " + didRename);
             }
         }
         catch (FileNotFoundException ex){

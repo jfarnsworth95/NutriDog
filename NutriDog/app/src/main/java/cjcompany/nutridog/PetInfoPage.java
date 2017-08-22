@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -175,11 +176,12 @@ public class PetInfoPage extends AppCompatActivity {
             fis.close();
 
             //delete old file, rename new file
-            File oldFile = new File(getFilesDir(),petName + "_Data_" + petID + ".csv");
-            oldFile.delete();
+            Boolean didDelete = deleteFile(petName + "_Data_" + petID + ".csv");
             File newFile = new File(this.getFilesDir(), "tempFile.csv");
-            newFile.renameTo(new File(petName + "_Data_" + petID + ".csv"));
+            Boolean didRename = newFile.renameTo(new File(getFilesDir(), "/" + petName + "_Data_" + petID + ".csv"));
 
+            Log.i("PetsPage","Old File Deleted: " + didDelete);
+            Log.i("PetsPage","Temp File Renamed: " + didRename);
 
         }catch (FileNotFoundException ex){
             System.err.println("INDIVIDUAL PET DATA FILE MISSING: REMOVED SINCE STARTUP");
