@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +26,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
+import java.util.zip.Inflater;
 
 // Handle extra files with:
 // https://developer.android.com/guide/topics/data/data-storage.html#filesInternal
@@ -142,15 +145,17 @@ public class PetsPage extends AppCompatActivity {
         LinearLayout rightColumn = (LinearLayout) findViewById(R.id.pets_rightColumn);
 
         for(int even = 0; even < dogInfos.size(); even +=2){
-            Button newLeftButton = createButton(dogInfos.get(even)[0],dogInfos.get(even)[1],dogInfos.get(even));
-            leftColumn.addView(newLeftButton);
+            createButton(dogInfos.get(even)[0],dogInfos.get(even)[1],dogInfos.get(even),leftColumn);
+            Log.i("PetsPage","Added pet button to LEFT Linear layout"); //TODO REMOVE AFTER TESTING
         }
         if(dogInfos.size() > 1){
             for(int odd = 1; odd < dogInfos.size(); odd += 2){
-                Button newRightButton = createButton(dogInfos.get(odd)[0],dogInfos.get(odd)[1],dogInfos.get(odd));
-                rightColumn.addView(newRightButton);
+                createButton(dogInfos.get(odd)[0],dogInfos.get(odd)[1],dogInfos.get(odd),rightColumn);
+                Log.i("PetsPage","Added pet button to RIGHT Linear layout"); //TODO REMOVE AFTER TESTING
             }
         }
+        Button btn = (Button) findViewById(R.id.btn_pet);
+        btn.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -159,9 +164,16 @@ public class PetsPage extends AppCompatActivity {
      * @param uniqueID id of the pet
      * @return the button representing a pet
      */
-    private Button createButton(final String name, final String uniqueID, final String[] dogInfo){
+    private void createButton(final String name, final String uniqueID, final String[] dogInfo, LinearLayout ll){
+
         //sets height, width, text size, and margin in R.id.btn_pet
-        final Button btn = (Button) findViewById(R.id.btn_pet);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        //inflate btn_pet to allow re-use
+        LinearLayout inflatedLL = (LinearLayout) inflater.inflate(R.layout.btn_pet,ll,true);
+
+        //final due to calls from internal methods
+        final Button btn = (Button) inflatedLL.getChildAt(inflatedLL.getChildCount() -1);
+
         btn.setText(name);
 
         //set button onClick and onLongClick methods
@@ -178,6 +190,7 @@ public class PetsPage extends AppCompatActivity {
         });
 
         //https://www.javatpoint.com/android-popup-menu-example
+        //this is for the delete pet data prompt
         btn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -209,7 +222,11 @@ public class PetsPage extends AppCompatActivity {
             }
         });
 
-        return btn;
+        Log.i("PetsPage","Finished creating pet button"); //TODO REMOVE AFTER TESTING
+
+        inflatedLL.removeView(btn);
+        ll.addView(btn);
+        return;
     }
 
     private void deletePetInfo(String name, String uniqueID){

@@ -123,7 +123,7 @@ public class StartPage extends AppCompatActivity {
      */
     public boolean fileExistence(String fname){
         File file = getBaseContext().getFileStreamPath(fname);
-        Log.i("StartPage",fname + " " + file.exists());
+        Log.i("StartPage",fname + " existence = " + file.exists());
         return file.exists();
     }
 }
