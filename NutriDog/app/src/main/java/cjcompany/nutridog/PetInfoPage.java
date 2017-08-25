@@ -41,7 +41,10 @@ public class PetInfoPage extends AppCompatActivity {
         petID = intent.getStringExtra(PetsPage.PET_ID);
         petInfo = intent.getStringArrayExtra(PetsPage.PET_INFO);
 
-        setContentView(R.layout.activity_pets_list);
+        setContentView(R.layout.activity_pet_info);
+
+        //Check if any data exists for pet, check if data for today exists
+        collectScreenData();
     }
 
     public void collectScreenData(){
@@ -68,35 +71,46 @@ public class PetInfoPage extends AppCompatActivity {
             br = new BufferedReader(new InputStreamReader(fis));
             String str = br.readLine();
 
+            if(str == null){
+                //calculate total calories for dog to consume
+                double rer = findCalorieRequirement(Integer.valueOf(petInfo[3]));
+                calorieLimit = Double.toString(rer);
+                caloriesConsumed = "0";
+                bf = "0";
+                lnh = "0";
+                dnr = "0";
+                snk = "0";
+                addTodayToPetData(day,month,year);
+            }else {
+                while (str != null) {
+                    if (!str.equals("")) {
+                        String[] split = str.split(",");
+                        if (new Integer(split[0]) == day && new Integer(split[1]) == month && new Integer(split[2]) == year) {
+                            calorieLimit = split[3];
 
-            while(str != null) {
-                if (!str.equals("")) {
-                    String[] split = str.split(",");
-                    if (new Integer(split[0]) == day && new Integer(split[1]) == month && new Integer(split[2]) == year) {
-                        calorieLimit = split[3];
+                            str = br.readLine(); //moves to meal names
+                            str = br.readLine(); //moves to meal calories
 
+                            String[] calorieList = str.split(",");
+                            bf = calorieList[0];
+                            lnh = calorieList[1];
+                            dnr = calorieList[2];
+                            snk = calorieList[3];
+
+                            Integer calConsumed = new Integer(bf) + new Integer(lnh) + new Integer(dnr) + new Integer(snk);
+                            caloriesConsumed = calConsumed.toString();
+                            break;
+
+                        }
                         str = br.readLine(); //moves to meal names
                         str = br.readLine(); //moves to meal calories
-
-                        String[] calorieList = str.split(",");
-                        bf = calorieList[0];
-                        lnh = calorieList[1];
-                        dnr = calorieList[2];
-                        snk = calorieList[3];
-
-                        Integer calConsumed = new Integer(bf) + new Integer(lnh) + new Integer(dnr) + new Integer(snk);
-                        caloriesConsumed = calConsumed.toString();
-                        break;
-
+                        str = br.readLine(); //moves to exercises
+                        str = br.readLine(); //moves to dates and total calories
                     }
-                    str = br.readLine(); //moves to meal names
-                    str = br.readLine(); //moves to meal calories
-                    str = br.readLine(); //moves to exercises
-                    str = br.readLine(); //moves to dates and total calories
+                    //if the day does not exist in file, taken care of below
+                    br.close();
+                    fis.close();
                 }
-                //if the day does not exist in file, taken care of below
-                br.close();
-                fis.close();
             }
         }catch (FileNotFoundException ex){
             System.err.println("INDIVIDUAL PET DATA FILE MISSING: REMOVED SINCE STARTUP");
