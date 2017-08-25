@@ -96,8 +96,10 @@ public class PetInfoPage extends AppCompatActivity {
                             lnh = calorieList[1];
                             dnr = calorieList[2];
                             snk = calorieList[3];
+                            snk = snk.replace(" ","");
 
-                            Integer calConsumed = new Integer(bf) + new Integer(lnh) + new Integer(dnr) + new Integer(snk);
+
+                            Integer calConsumed = Integer.valueOf(bf) + Integer.valueOf(lnh) + Integer.valueOf(dnr) + Integer.valueOf(snk);
                             caloriesConsumed = calConsumed.toString();
                             break;
 
@@ -183,7 +185,7 @@ public class PetInfoPage extends AppCompatActivity {
                     + "," + Integer.toString(year)+ "," + Double.toString(rer) + "\n";
             outputStream.write(dateAndCalories.getBytes());
             outputStream.write("\n".getBytes()); //meal names
-            outputStream.write("0,0,0,0 \n".getBytes()); //meal calories
+            outputStream.write("0,0,0,0\n".getBytes()); //meal calories
 
             outputStream.close();
             br1.close();

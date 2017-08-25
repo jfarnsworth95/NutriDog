@@ -36,8 +36,6 @@ public class SearchableActivity extends ListActivity {
 
     public ArrayList<String> findMatchingDogFood(String query){
 
-        String dogFoodFile = "cleanDogFood.csv";
-
         //when searching, cut off first index, which corresponds to brand
         ArrayList<String> matchingResults = new ArrayList<String>();
         BufferedReader br = null;
@@ -45,7 +43,7 @@ public class SearchableActivity extends ListActivity {
         try{
             //I'd test this properly, but I've wasted 4 fucking days trying to get Android Studio's
             //stupid setup to work. So, if this breaks, I'll fix it the hard way.
-            FileInputStream fis = openFileInput(dogFoodFile);
+            FileInputStream fis = openFileInput("cleanDogFood.csv");
             br = new BufferedReader(new InputStreamReader(fis));
 
             String str = br.readLine();
@@ -73,7 +71,7 @@ public class SearchableActivity extends ListActivity {
             }
         }
         catch (FileNotFoundException ex){
-            System.err.println("DogFood.csv is not at expected location");
+            System.err.println("cleanDogFood.csv is not at expected location");
         }
         catch (IOException ex1){
             System.err.println("Error while reading file");

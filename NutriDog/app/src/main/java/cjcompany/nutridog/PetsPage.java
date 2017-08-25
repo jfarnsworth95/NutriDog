@@ -28,7 +28,6 @@ import java.util.Random;
 // Handle extra files with:
 // https://developer.android.com/guide/topics/data/data-storage.html#filesInternal
 
-//TODO Find why new pet button does not create a second pet button after submission
 
 public class PetsPage extends AppCompatActivity {
 
@@ -78,7 +77,6 @@ public class PetsPage extends AppCompatActivity {
     }
 
     public void createPetButtons(){
-        Log.i("PetsPage","Creating buttons"); //TODO REMOVE AFTER TESTING
         try {
             FileInputStream fis = openFileInput("pets.csv");
             br = new BufferedReader(new InputStreamReader(fis));
@@ -112,7 +110,6 @@ public class PetsPage extends AppCompatActivity {
 
     public void createPetButtons(String firstLine){
         Log.i("PetsPage","File not empty, making buttons"); //TODO REMOVE AFTER TESTING
-        Log.i("PetsPage","First line is: " + firstLine); //TODO REMOVE AFTER TESTING
         setContentView(R.layout.activity_pets_list);
         ArrayList<String[]> dogInfos = new ArrayList<String[]>();
         dogInfos.add(firstLine.split(","));
@@ -120,7 +117,6 @@ public class PetsPage extends AppCompatActivity {
         //find pets from sheet
         try{
             String str = br.readLine();
-            Log.i("PetsPage","line being read: " + str); //TODO REMOVE AFTER TESTING
             while(str != null){
                 dogInfos.add(str.split(","));
                 str= br.readLine();
@@ -144,12 +140,10 @@ public class PetsPage extends AppCompatActivity {
 
         for(int even = 0; even < dogInfos.size(); even +=2){
             createButton(dogInfos.get(even)[0],dogInfos.get(even)[1],dogInfos.get(even),leftColumn);
-            Log.i("PetsPage","Added pet button to LEFT Linear layout"); //TODO REMOVE AFTER TESTING
         }
         if(dogInfos.size() > 1){
             for(int odd = 1; odd < dogInfos.size(); odd += 2){
                 createButton(dogInfos.get(odd)[0],dogInfos.get(odd)[1],dogInfos.get(odd),rightColumn);
-                Log.i("PetsPage","Added pet button to RIGHT Linear layout"); //TODO REMOVE AFTER TESTING
             }
         }
         Button btn = (Button) findViewById(R.id.btn_pet);
@@ -220,8 +214,6 @@ public class PetsPage extends AppCompatActivity {
             }
         });
 
-        Log.i("PetsPage","Finished creating pet button"); //TODO REMOVE AFTER TESTING
-
         inflatedLL.removeView(btn);
         ll.addView(btn);
         return;
@@ -290,7 +282,6 @@ public class PetsPage extends AppCompatActivity {
     }
 
     private void onSubmitNewPet(View view) {
-        Log.i("PetsPage","Clicked Submit"); //TODO REMOVE AFTER TESTING
         //save dog info to pets.csv
         //Name,UniqueID,Age,Weight,Height,Breed,Gender
         String name;
@@ -305,7 +296,6 @@ public class PetsPage extends AppCompatActivity {
             while(str != null) {
                 str = str.concat("\n");
                 outputStream.write(str.getBytes());
-                Log.i("PetsPage_COPY","Writing: <" + str +"> to file"); //TODO REMOVE AFTER TESTING
                 str = br.readLine();
             }
 
@@ -331,7 +321,6 @@ public class PetsPage extends AppCompatActivity {
             }else{
                 newPetData += ",Female";
             }
-            Log.i("PetsPage","Writing: <" + newPetData + "> to file"); //TODO REMOVE AFTER TESTING
             newPetData = newPetData.concat("\n");
             outputStream.write(newPetData.getBytes());
 
@@ -370,7 +359,6 @@ public class PetsPage extends AppCompatActivity {
         }
 
         //reload page
-        Log.i("PetsPage","Entered Pet Info"); //TODO REMOVE AFTER TEST
         createPetButtons();
     }
 
