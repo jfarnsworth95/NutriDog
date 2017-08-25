@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,15 +24,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
-import java.util.zip.Inflater;
 
 // Handle extra files with:
 // https://developer.android.com/guide/topics/data/data-storage.html#filesInternal
 
-/**
- * Created by Jackson on 6/20/2017.
- */
+//TODO Find why new pet button does not create a second pet button after submission
+
 public class PetsPage extends AppCompatActivity {
 
     BufferedReader br;
@@ -116,6 +112,7 @@ public class PetsPage extends AppCompatActivity {
 
     public void createPetButtons(String firstLine){
         Log.i("PetsPage","File not empty, making buttons"); //TODO REMOVE AFTER TESTING
+        Log.i("PetsPage","First line is: " + firstLine); //TODO REMOVE AFTER TESTING
         setContentView(R.layout.activity_pets_list);
         ArrayList<String[]> dogInfos = new ArrayList<String[]>();
         dogInfos.add(firstLine.split(","));
@@ -123,6 +120,7 @@ public class PetsPage extends AppCompatActivity {
         //find pets from sheet
         try{
             String str = br.readLine();
+            Log.i("PetsPage","line being read: " + str); //TODO REMOVE AFTER TESTING
             while(str != null){
                 dogInfos.add(str.split(","));
                 str= br.readLine();
@@ -305,8 +303,9 @@ public class PetsPage extends AppCompatActivity {
             String str = br.readLine();
 
             while(str != null) {
+                str = str.concat("\n");
                 outputStream.write(str.getBytes());
-                Log.i("PetsPage","Writing: <" + str +"> to file"); //TODO REMOVE AFTER TESTING
+                Log.i("PetsPage_COPY","Writing: <" + str +"> to file"); //TODO REMOVE AFTER TESTING
                 str = br.readLine();
             }
 
@@ -333,6 +332,7 @@ public class PetsPage extends AppCompatActivity {
                 newPetData += ",Female";
             }
             Log.i("PetsPage","Writing: <" + newPetData + "> to file"); //TODO REMOVE AFTER TESTING
+            newPetData = newPetData.concat("\n");
             outputStream.write(newPetData.getBytes());
 
             outputStream.close();
